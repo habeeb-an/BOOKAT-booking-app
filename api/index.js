@@ -8,11 +8,12 @@ const bcryptSalt=bcrypt.genSaltSync(10)
 const jwt = require('jsonwebtoken');
 const { userInfo } = require('os');
 const jwtSecret='qwertyuiop'
+const cookieParser=require('cookie-parser')
 
 const app= express();
 
 
-
+app.use(cookieParser());
 app.use(express.json());
 app.use(cors({
     credentials:true,
@@ -44,7 +45,9 @@ app.post('/login',async(req,res)=>{
     if(userDocs){
         const passOk=bcrypt.compareSync(password,userDocs.password)
         if(passOk){
-            jwt.sign({email:userDocs.email, id:userDocs._id}, jwtSecret,{},(err,token)=>{
+            jwt.sign({
+                email:userDocs.email, 
+                id:userDocs._id}, jwtSecret,{},(err,token)=>{
                 if(err) throw err;
                 res.cookie('token',token,{secure:false,sameSite:'none'}).json(userDocs)
 
@@ -55,6 +58,21 @@ app.post('/login',async(req,res)=>{
     }else{
         res.json("not found")
     }
+})
+
+//profile
+
+app.get('/profile',(req,res)=>{
+      const {token}= req.cookies;
+      if(token){
+        jwt.verify(token,jwtSecret,{},async (err,userData)=>{
+                if(err) throw err;
+                const {name,email,_id}= await User.findById(userData.id)
+                res.json({name,email,_id})
+        })
+      }else{
+        res.json(null)
+      }
 })
 
 app.listen(4000)
