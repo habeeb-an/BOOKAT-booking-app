@@ -25,7 +25,9 @@ or
 </p>
 
 <p>This is MERN full stack web site</p>
-<p>Features</p>
+
+**Features**
+
 <ul>
 <li>Used Vite is a modern build tool that is designed to streamline the development workflow for web applications.</li>
 <li>jsonwebtoken used for login authentification</li>
