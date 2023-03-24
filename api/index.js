@@ -19,7 +19,7 @@ app.use(cors({
     credentials:true,
     origin:'http://localhost:5173'
 }));
-mongoose.connect(process.env.MONGOURI)
+mongoose.connect(process.env.MONGOURI);
 app.get('/test',(req,res)=>{
     res.json('okei')
 });
@@ -41,15 +41,16 @@ res.json(userDoc);
 
 app.post('/login',async(req,res)=>{
     const {email,password}=req.body;
-    const userDocs=await User.findOne({email})
-    if(userDocs){
-        const passOk=bcrypt.compareSync(password,userDocs.password)
+    const userDoc=await User.findOne({email})
+    if(userDoc){
+        const passOk=bcrypt.compareSync(password,userDoc.password)
         if(passOk){
             jwt.sign({
-                email:userDocs.email, 
-                id:userDocs._id}, jwtSecret,{},(err,token)=>{
+                email:userDoc.email, 
+                id:userDoc._id,
+               }, jwtSecret,{},(err,token)=>{
                 if(err) throw err;
-                res.cookie('token',token,{secure:false,sameSite:'none'}).json(userDocs)
+                res.cookie('token',token,{secure:false,sameSite:'none'}).json(userDoc)
 
             })
         }else{

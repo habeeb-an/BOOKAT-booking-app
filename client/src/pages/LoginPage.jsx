@@ -8,7 +8,7 @@ export default function LoginPage(){
     const [password,setPassword]=useState('');
     const [redirect,setRedirect]=useState(false);
 
-    const {setUser} = useContext(UserContext)
+    const {setUser} = useContext(UserContext);
 
     async function handleLoginSubmit(ev){
         ev.preventDefault();
