@@ -26,6 +26,16 @@ or
 
 <p>This is MERN full stack web site</p>
 
+<h2>test email and pass</h2>
+
+mail:
+
+```abc@email.com```
+
+pass:
+
+```1234```
+
 **Features**
 
 <ul>
