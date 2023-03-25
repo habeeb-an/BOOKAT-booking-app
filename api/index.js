@@ -6,7 +6,6 @@ require('dotenv').config()
 const bcrypt = require('bcryptjs');
 const bcryptSalt=bcrypt.genSaltSync(10)
 const jwt = require('jsonwebtoken');
-const { userInfo } = require('os');
 const jwtSecret='qwertyuiop'
 const cookieParser=require('cookie-parser')
 
@@ -76,4 +75,8 @@ app.get('/profile',(req,res)=>{
       }
 })
 
+//logout
+app.post ('/logout',(req,res)=>{
+    res.cookie('token','').json(true)
+})
 app.listen(4000)
