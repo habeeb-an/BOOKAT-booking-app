@@ -2,6 +2,7 @@ import axios from "axios";
 import { useContext, useState } from "react"
 import { Link, Navigate, useParams } from "react-router-dom";
 import { UserContext } from "../UserContext"
+import PlacesPage from "./PlacesPages";
 
 
 export default function AccountPage() {
@@ -53,6 +54,12 @@ if(redirect) {
         </div>
     )}
 
+
+{subpage===places&& (
+    <div>
+        <PlacesPage/>
+    </div>
+)}
 
     </div>)
 }
