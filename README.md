@@ -6,6 +6,11 @@
 <p>to install yarn package manager</p>
 
 ``` npm install -g yarn```
+
+then
+
+``` yarn install```
+
 <p>to run vite</p>
 
 ```cd client```
@@ -16,8 +21,8 @@ to connect api
 
 ```cd api```
 
-```nodemon index.js```  
-or
+
+```npm install npx --save-dev```  
 
 ```npx nodemon index.js```
 
