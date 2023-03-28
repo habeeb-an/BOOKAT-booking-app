@@ -46,12 +46,20 @@ setPhotoLink('')
 }
 
 function uploadPhoto(ev) {
-const files=ev.target.files;
-const data=new FormData();
-data.set('file'.files);
-axios.post('/uploads',data,{
-    
-})
+    const files=ev.target.files;
+    const data=new FormData();
+    for (let i=0;i<files.length;i++){
+        data.append('photos',files[i]);
+
+    }
+    axios.post('/upload',data,{
+        headers:{'Content-type':'multipart/form-data'}
+    }).then(res=>{
+        const {data:filename}=responce;
+        setAddedPhotos(prev =>{
+            return [...prev,filename];
+        });
+    }) 
 }
     return (
         <div>
@@ -87,7 +95,7 @@ axios.post('/uploads',data,{
                                 ))}
 
                         <label className="cursor-pointer items-center flex justify-center gap-1 border bg-transparent rounded-2xl p-8 text-2xl text-gray-600">
-                        <input type='file' className="hidden" onChange={uploadPhoto}/>
+                        <input type='file' multiple className="hidden" onChange={uploadPhoto}/>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8">
   <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
 </svg>
