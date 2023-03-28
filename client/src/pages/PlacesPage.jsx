@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import Perks from "../Perks";
@@ -34,11 +35,24 @@ export default function PlacesPage() {
             </div>
         )
     }
-//photo
-function addPhotoByLink(){
-    
+//photoByLink
+async function addPhotoByLink(ev){
+ev.preventDefault();
+const {data:filename}=await axios.post('/upload-by-link',{link:photoLink})
+setAddedPhotos(prev=>{
+    return [...prev,filename]
+})
+setPhotoLink('')
 }
-   
+
+function uploadPhoto(ev) {
+const files=ev.target.files;
+const data=new FormData();
+data.set('file'.files);
+axios.post('/uploads',data,{
+    
+})
+}
     return (
         <div>
             {action!=='new' && (
@@ -62,18 +76,23 @@ function addPhotoByLink(){
                         {preInput('Photos','more means better')}
                         <div className="flex gap-2">
                         <input type='text' value={photoLink} onChange={ev=>setPhotoLink(ev.target.value)} placeholder={'add using a link ...jpg'} />
-                        <button className="bg-gray-200 px-4 rounded-2xl">Add&nbsp;image</button>
+                        <button onClick={addPhotoByLink} className="bg-gray-200 px-4 rounded-2xl">Add&nbsp;image</button>
                         </div>
-                        
-                        <div className="grid grid-cols-3 lg:grid-cols-6">
-                        <button className="flex justify-center gap-1 border bg-transparent rounded-2xl p-8 text-2xl text-gray-600">
+                        <div className="gap-2 grid grid-cols-4 lg:grid-cols-6">
 
+                            {addedPhotos.length>0 && addedPhotos.map(link=>(
+                                    <div>
+                                        <img className="rounded-2xl" src={'http://localhost:4000/uploads/'+link} alt={link} />
+                                    </div>
+                                ))}
+
+                        <label className="cursor-pointer items-center flex justify-center gap-1 border bg-transparent rounded-2xl p-8 text-2xl text-gray-600">
+                        <input type='file' className="hidden" onChange={uploadPhoto}/>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8">
   <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
 </svg>
-Upload
-                        </button>
-                        </div>
+Upload 
+</label></div>
                         <div>
                         {preInput('Description','explain features and things')}
 
