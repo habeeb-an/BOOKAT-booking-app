@@ -1,48 +1,23 @@
-import axios from "axios";
-import { useContext, useState } from "react"
-import { Link, Navigate, useParams } from "react-router-dom";
-import { UserContext } from "../UserContext"
-import PlacesPage from "./PlacesPage";
+import { Link, useLocation } from "react-router-dom";
 
-
-export default function AccountPage() {
-const{ready,user,setUser}=useContext(UserContext);
-const[redirect,setRedirect]=useState(null);
-
-let {subpage}= useParams();
-if(subpage=== undefined) { 
-    subpage='profile'
-}
-
-async function logout() {
-    await axios.post('/logout');
-    setRedirect('/');
-    setUser(null);
-}
-
-
-if(!ready){
-    return 'Loading...'
-}
-
-if(ready&& !user && !redirect){
-    return <Navigate to={'/login'}/>
-
-}
+export default function AccountNav() { 
+    const {pathname}=useLocation();
+    let subpage=pathname.split('/')?.[2]; 
+    if(!subpage) { 
+        subpage='profile'
+    }
+    
     function linkClasses(type=null) {
-        let classes='inline-flex py-2 px-6 gap-1 rounded-full'
-        if(type===subpage){
+        let classes='inline-flex py-2 px-6 gap-1 rounded-full' 
+        if(type===subpage){ 
             classes +=' bg-primary text-white '
         }
         
-        return classes;
+        return classes; 
     }
-if(redirect) {
-    return <Navigate to={redirect}/>
-}
 
-    return (
-    <div>
+return(
+        <>
         <nav className="w-full flex mt-8 gap-4 justify-center mb-8">
         <Link className={linkClasses('profile')} to={'/account'}>
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
@@ -63,15 +38,7 @@ My bookings
 My accomedations
         </Link>
     </nav>
-    {subpage==='profile'&& (
-        <div className="text-center max-w-lg mx-auto ">
-            Logged in as {user.name} ({user.email})<br />
-            <button className="primary max-w-sm mt-2" onClick={logout}>Logout</button>
-        </div>
-    )}
-    {subpage==='places'&& (
-        <PlacesPage/>
-    )}
-
-    </div>)
+        
+        </>
+    )
 }

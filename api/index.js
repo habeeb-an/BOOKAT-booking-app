@@ -2,6 +2,7 @@ const express= require('express')
 var cors = require('cors');
 const { default: mongoose } = require('mongoose');
 const User=require('./models/User.js')
+const Place=require('./models/Place.js');
 require('dotenv').config()
 const bcrypt = require('bcryptjs');
 const bcryptSalt=bcrypt.genSaltSync(10)
@@ -11,7 +12,8 @@ const cookieParser=require('cookie-parser')
 const imageDownloader = require('image-downloader');
 const { dirname } = require('path');
 const multer  = require('multer')
-const fs=require('fs') // to rename files from server
+const fs=require('fs'); // to rename files from server
+const PlaceModel = require('./models/Place.js');
 
 const app= express();
 
@@ -110,4 +112,47 @@ app.post('/upload',photosMiddleware.array('photos',100),(req,res)=>{
     }
     res.json(uploadedFiles);
 })
+
+
+//places
+
+app.post('/places',(req,res)=>{
+    const {token}= req.cookies;
+    const {title,address,photos:addedPhotos,description,
+            perks,extraInfo,checkIn,checkOut,maxGuests}=req.body;
+    jwt.verify(token,jwtSecret,{},async (err,userData)=>{
+        if(err) throw err;
+        const placeDoc= await Place.create({
+            owner:userData.id,
+            title,
+            address,
+            photos:addedPhotos,
+            description,
+            perks,
+            extraInfo,
+            checkIn,
+            checkOut,
+            maxGuests,
+        })
+        res.json(placeDoc);
+})
+    
+
+})
+
+app.get('/places',(req,res)=>{
+    const {token}=req.cookies;
+    jwt.verify(token,jwtSecret,{},async (err,userData)=>{
+        if(err) throw err;
+        const {id}=userData;
+        res.json( await Place.find({owner:id}) );
+    })
+});
+
+//geting place by id
+app.get('/places/:id',async (req,res)=>{
+    const {id} =req.params;
+    res.json(await Place.findById(id))
+})
+
 app.listen(4000)
