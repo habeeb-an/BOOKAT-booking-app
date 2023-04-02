@@ -4,11 +4,9 @@ const { default: mongoose } = require('mongoose');
 const User=require('./models/User.js')
 require('dotenv').config()
 const bcrypt = require('bcryptjs');
-const bcryptSalt=bcrypt.genSaltSync(10);
-
+const bcryptSalt=bcrypt.genSaltSync(10)
 const jwt = require('jsonwebtoken');
 const jwtSecret='qwertyuiop'
-
 const cookieParser=require('cookie-parser')
 const imageDownloader = require('image-downloader');
 const { dirname } = require('path');
@@ -30,14 +28,14 @@ app.get('/test',(req,res)=>{
 });
 
 app.post('/register',async (req,res)=>{
-    const {name,email,password}=req.body;
+    const {name,email,password}=req.body
     try{
         const userDoc=await User.create({
             name,
             email,
             password:bcrypt.hashSync(password,bcryptSalt),
-        });
-    res.json(userDoc);
+        })
+res.json(userDoc);
 
     }catch(e){
         res.status(422).json(e);
