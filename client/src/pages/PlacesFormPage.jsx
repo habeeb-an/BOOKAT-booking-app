@@ -20,19 +20,21 @@ export default function PlacesFormPage(){
     const [redirect,setRedirect]=useState(false);
 
     useEffect(()=>{
-        if(!id) return;
+        if(!id){
+            return;
+        } 
     axios.get('/places/'+id).then(res=>{
-        const {data}=res;
-        setTitle(data.title);
+       const {data}=res;
+         setTitle(data.title);
         setAddress(data.address);
-        setAddedPhotos(data.addedPhotos);
+        setAddedPhotos(data.photos);
         setDescription(data.description);
         setPerks(data.perks);
         setExtraInfo(data.extraInfo);
         setCheckIn(data.checkIn);
         setCheckOut(data.checkOut);
         setMaxGuests(data.maxGuests);
-        
+
     })
     },[id]);
     
@@ -57,11 +59,11 @@ export default function PlacesFormPage(){
         )
     }
 
-    async function addNewplace(ev){
+    async function savePLace(ev){
         ev.preventDefault();
         
         await axios.post('/places',{
-            address,addedPhotos,description,
+            title,address,addedPhotos,description,
             perks,extraInfo,checkIn,
             checkOut,maxGuests
         });
@@ -77,11 +79,11 @@ if(redirect){
         <>
         <div>
             <AccountNav/>
-    <form onSubmit={addNewplace}>
+    <form onSubmit={savePLace}>
         {preInput('Titles','Should be catchy')}
         <input type='text' value={title} onChange={ev=>setTitle(ev.target.value)} placeholder="Title, eg:-Skyvalley apartment"/>
-        {preInput('Address','')}
-        <input type='text' value={address} onChange={ev=>setAddress(ev.target.address)} placeholder="Address"/>
+        {preInput('Address','enter the address')}
+        <input type='text' value={address} onChange={ev=>setAddress(ev.target.value)} placeholder="Address"/>
         {preInput('Photos','more means better')}
 
         <PhotoUploader addedPhotos={addedPhotos} onChange={setAddedPhotos}/>
