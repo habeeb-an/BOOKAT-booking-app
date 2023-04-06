@@ -59,17 +59,25 @@ export default function PlacesFormPage(){
         )
     }
 
-    async function savePLace(ev){
-        ev.preventDefault();
-        
-        await axios.post('/places',{
-            title,address,addedPhotos,description,
-            perks,extraInfo,checkIn,
-            checkOut,maxGuests
-        });
-    setRedirect(true);
+    async function savePlace(ev) {
+    ev.preventDefault();
+    const placeData = {
+      title, address, addedPhotos,
+      description, perks, extraInfo,
+      checkIn, checkOut, maxGuests,}
+    if (id) {
+      // update
+      await axios.put('/places', {
+        id, ...placeData
+      });
+      setRedirect(true);
+    } else {
+      // new place
+      await axios.post('/places', placeData);
+      setRedirect(true);
+    }
 
-    }    
+  }
 
 if(redirect){
     return <Navigate to={'/account/places'}/>
@@ -79,7 +87,7 @@ if(redirect){
         <>
         <div>
             <AccountNav/>
-    <form onSubmit={savePLace}>
+    <form onSubmit={savePlace}>
         {preInput('Titles','Should be catchy')}
         <input type='text' value={title} onChange={ev=>setTitle(ev.target.value)} placeholder="Title, eg:-Skyvalley apartment"/>
         {preInput('Address','enter the address')}
