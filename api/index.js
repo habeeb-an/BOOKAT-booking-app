@@ -13,7 +13,6 @@ const imageDownloader = require('image-downloader');
 const { dirname } = require('path');
 const multer  = require('multer')
 const fs=require('fs'); // to rename files from server
-const PlaceModel = require('./models/Place.js');
 
 const app= express();
 
