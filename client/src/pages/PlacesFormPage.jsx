@@ -17,6 +17,9 @@ export default function PlacesFormPage(){
     const [checkIn,setCheckIn]=useState('');
     const [checkOut,setCheckOut]=useState('');
     const [maxGuests,setMaxGuests]=useState(1);
+
+    const [price,setPrice]=useState(99);
+
     const [redirect,setRedirect]=useState(false);
 
     useEffect(()=>{
@@ -34,6 +37,7 @@ export default function PlacesFormPage(){
         setCheckIn(data.checkIn);
         setCheckOut(data.checkOut);
         setMaxGuests(data.maxGuests);
+        setPrice(data.price);
 
     })
     },[id]);
@@ -64,7 +68,7 @@ export default function PlacesFormPage(){
     const placeData = {
       title, address, addedPhotos,
       description, perks, extraInfo,
-      checkIn, checkOut, maxGuests,}
+      checkIn, checkOut, maxGuests,price,}
     if (id) {
       // update
       await axios.put('/places', {
@@ -114,7 +118,7 @@ if(redirect){
         {preInput('Check in&Check out times,max guests','add also time window details about routine')}
 
 
-        <div className="grid sm:grid-cols-3">
+        <div className="grid grid-cols-2 md:grid-cols-4">
             <div>
                 <h3 className="mt-2 -mb-1 ">Check in</h3>
                 <input type='text'  value={checkIn} onChange={ev=>setCheckIn(ev.target.value)} placeholder="14:00" />
@@ -129,6 +133,13 @@ if(redirect){
 
                 <input type='Number'  value={maxGuests} onChange={ev=>setMaxGuests(ev.target.value)} placeholder="4" />
                 </div>
+            <div>
+        <h3 className="mt-2 -mb-1 ">Price per night</h3>
+
+            <input type='Number'  value={price} onChange={ev=>setPrice(ev.target.value)} placeholder="$99" />
+            </div>
+
+                
         </div>
         <div>
             <button className="primary my-6">Save

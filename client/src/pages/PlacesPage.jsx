@@ -19,7 +19,7 @@ export default function PlacesPage() {
   <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
 </svg>Add new place</Link>
             </div>
-            <div className="flex">
+            <div className="mt-4">
                 {places.length>0 && places.map((place)=>(
                     <Link to={'/account/places/'+place._id} className="flex cursor-pointer gap-4 bg-gray-100 p-4 rounded-2xl">
                         <div className="flex w-32 h-32 bg-gray-300 grow shrink-0">
