@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom"
+import Bookingwidget from "../Bookingwidget";
 
 export default function DestinationPage() {
     const {id}=useParams();
@@ -20,10 +21,10 @@ export default function DestinationPage() {
     if (showAllPhotos){
         return (
         
-        <div className="absolute  inset-0 bg-white  min-h-screen">
-            <div className="p-8 grid gap-4">
+        <div className="absolute  inset-0 bg-black text-white  min-h-screen">
+            <div className="p-8 bg-black grid gap-4">
             <div>
-                <button onClick={()=>setShowAllPhotos(false)} className="top-2 fixed flex bg-white p-2 rounded-2xl  cursor-pointer hover:bg-gray-100">
+                <button onClick={()=>setShowAllPhotos(false)} className="top-2 fixed flex bg-white text-black p-2 rounded-2xl  cursor-pointer hover:bg-gray-100">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
                 </svg>
@@ -44,9 +45,15 @@ export default function DestinationPage() {
     return (
         <div className="mt-4 py-8 bg-gray-100 -mx-8 px-8">
             <h1 className="text-3xl">{place.title}</h1>
-            <a className="my-2 block font-semibold underline" target='_blank' href={'https://www.google.com/maps/?q='+place.address}>{place.address}</a>
+            <a className="flex gap-1 my-3 block font-semibold underline" target='_blank' href={'https://www.google.com/maps/?q='+place.address}>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+  <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+  <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
+</svg>
+
+            {place.address}</a>
             <div className="relative">
-                    <div className="grid gap-2 grid-cols-[2fr_1fr_1fr]">
+                    <div className="grid gap-2 grid-cols-[2fr_1fr_1fr] rounded-2xl overflow-hidden">
                         <div>
                             {place.photos?.[0] &&(
                         <div>
@@ -76,15 +83,50 @@ export default function DestinationPage() {
                             </div>
                         </div>
                     </div>
-                    <button onClick={()=>setShowAllPhotos(true)} className="flex gap-1 bg-white absolute bottom-0 right-0 px-4 py-2 rounded-2xl shadow shadow-md shadow-gray-500 hover:bg-gray-200">
+                    <button onClick={()=>setShowAllPhotos(true)} className="flex gap-1 bg-white absolute bottom-2 right-2 px-4 py-2 rounded-2xl shadow shadow-md shadow-gray-500 hover:bg-gray-200">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
   <path strokeLinecap="round" strokeLinejoin="round" d="M9 4.5v15m6-15v15m-10.875 0h15.75c.621 0 1.125-.504 1.125-1.125V5.625c0-.621-.504-1.125-1.125-1.125H4.125C3.504 4.5 3 5.004 3 5.625v12.75c0 .621.504 1.125 1.125 1.125z" />
 </svg>
 
                     Show more</button>
 
+
                 </div>
+            
+
+    <div className="mt-8 gap-8 grid grid-cols-1  md:grid-cols-[2fr_1fr]">
+            <div className="my-4">
+                <div className="my-4">
+                <h2 className="mb-2 font-semibold text-2xl">Description</h2>
+                    {place.description}
+                </div>
+                Check-in:{place.checkIn} <br/>
+                Check-out:{place.checkOut} <br/>
+                Max number of guests:{place.maxGuests} <br/>
+               
             </div>
+            <div>
+
+            <Bookingwidget place={place}/>
+            </div>
+
+                      
+                        </div>
+                            <div className="bg-white -mx-8 px-8 pt-8">
+                                
+                            
+                        <div>
+                            <h2 className="mb-2 font-semibold text-2xl">Extra info</h2>
+                        </div>
+                <div className="mb-4 mt-1 text-sm text-gray-500 leading-4">
+                {place.extraInfo}
+                
+            </div>
+
+            </div>
+            </div>
+            
+        
 
             
     )
