@@ -43,7 +43,7 @@ export default function DestinationPage() {
         )
     }
     return (
-        <div className="mt-4 py-8 bg-gray-100 -mx-8 px-8">
+        <div className="mt-4 pt-8 bg-gray-100 -mx-8 px-8">
             <h1 className="text-3xl">{place.title}</h1>
             <a className="flex gap-1 my-3 block font-semibold underline" target='_blank' href={'https://www.google.com/maps/?q='+place.address}>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
@@ -94,7 +94,7 @@ export default function DestinationPage() {
                 </div>
             
 
-    <div className="mt-8 gap-8 grid grid-cols-1  md:grid-cols-[2fr_1fr]">
+    <div className="mt-8 mb-4 gap-8 grid grid-cols-1  md:grid-cols-[2fr_1fr]">
             <div className="my-4">
                 <div className="my-4">
                 <h2 className="mb-2 font-semibold text-2xl">Description</h2>
@@ -112,13 +112,13 @@ export default function DestinationPage() {
 
                       
                         </div>
-                            <div className="bg-white -mx-8 px-8 pt-8">
+                            <div className="bg-white -mx-8 px-8 py-8 border-t">
                                 
                             
                         <div>
-                            <h2 className="mb-2 font-semibold text-2xl">Extra info</h2>
+                            <h2 className="font-semibold text-2xl">Extra info</h2>
                         </div>
-                <div className="mb-4 mt-1 text-sm text-gray-500 leading-4">
+                <div className="mb-4 mt-2 text-sm text-gray-500 leading-5">
                 {place.extraInfo}
                 
             </div>
