@@ -74,7 +74,7 @@ return (
                     )}
 
                     
-                    <button onClick={bookThisPlace()} className="primary mt-4">
+                    <button onClick={bookThisPlace} className="primary mt-4">
                     Book this place
                     { numberOfNights>0 && (
                     <span className="font-semibold"> ${numberOfNights * place.price}</span>
