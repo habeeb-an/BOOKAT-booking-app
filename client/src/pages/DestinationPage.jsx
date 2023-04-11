@@ -42,6 +42,8 @@ export default function DestinationPage() {
 
         )
     }
+        //  <img className="cursor-pointer" onClick={() => setShowAllPhotos(true)} src={'http://localhost:4000/uploads/' + place.photos[0]} alt="" />
+
     return (
         <div className="mt-4 pt-8 bg-gray-100 -mx-8 px-8">
             <h1 className="text-3xl">{place.title}</h1>
@@ -53,37 +55,27 @@ export default function DestinationPage() {
 
             {place.address}</a>
             <div className="relative">
-                    <div className="grid gap-2 grid-cols-[2fr_1fr_1fr] rounded-2xl overflow-hidden">
-                        <div>
-                            {place.photos?.[0] &&(
-                        <div>
-                        <img className="aspect-square object-cover" src={'http://localhost:4000/uploads/'+place.photos[0]} alt=""/>
+      <div className="grid gap-2 grid-cols-[2fr_1fr] rounded-3xl overflow-hidden">
+        <div >
+          {place.photos?.[0] && (
+            <div>
+              <img onClick={() => setShowAllPhotos(true)} className="aspect-square cursor-pointer object-cover" src={'http://localhost:4000/uploads/' + place.photos[0]} alt=""/>
+            </div>
+          )}
+        </div>
+        <div className="grid">
+          {place.photos?.[1] && (
+            <img onClick={() => setShowAllPhotos(true)} className="aspect-square cursor-pointer object-cover" src={'http://localhost:4000/uploads/' + place.photos[1]} alt=""/>
+          )}
+          <div className="overflow-hidden">
+            {place.photos?.[2] && (
+                <img onClick={() => setShowAllPhotos(true)} className="aspect-square cursor-pointer object-cover relative top-2" src={'http://localhost:4000/uploads/' + place.photos[2]} alt=""/>
+            )}
+          </div>
+        </div>
+      </div>
 
-                        </div>
-
-                            )}
-                        </div>
-                        <div className="grid gap-y-2">
-                        {place.photos?.[1] &&(
-                                <img  className="aspect-square object-cover" src={'http://localhost:4000/uploads/'+place.photos[1]} alt=""/>
-                            )}
-                            {place.photos?.[2] &&(
-                                <img className="aspect-square object-cover"  src={"http://localhost:4000/uploads/"+place.photos[2]} alt=""/>
-                            )}
-
-                        </div>
-                        <div className="grid">
-                            {place.photos?.[3] &&(
-                                <img className="aspect-square object-cover"  src={"http://localhost:4000/uploads/"+place.photos[3]} alt=""/>
-                            )}
-                            <div className="overflow-hidden">    
-                            {place.photos?.[4] &&(
-                                <img className="aspect-square object-cover relative top-2"  src={"http://localhost:4000/uploads/"+place.photos[4]} alt=""/>
-                            )}
-                            </div>
-                        </div>
-                    </div>
-                    <button onClick={()=>setShowAllPhotos(true)} className="flex gap-1 bg-white absolute bottom-2 right-2 px-4 py-2 rounded-2xl shadow shadow-md shadow-gray-500 hover:bg-gray-200">
+                    <button onClick={()=>setShowAllPhotos(true)} className="flex gap-1 bg-white absolute bottom-5 right-5 px-4 py-2 rounded-2xl shadow shadow-md shadow-gray-500 hover:bg-gray-200">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
   <path strokeLinecap="round" strokeLinejoin="round" d="M9 4.5v15m6-15v15m-10.875 0h15.75c.621 0 1.125-.504 1.125-1.125V5.625c0-.621-.504-1.125-1.125-1.125H4.125C3.504 4.5 3 5.004 3 5.625v12.75c0 .621.504 1.125 1.125 1.125z" />
 </svg>
