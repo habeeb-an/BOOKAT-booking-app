@@ -8,8 +8,8 @@ export default function PlaceGallery({place}) {
         return (
         
         <div className="absolute  inset-0 bg-black text-white  min-h-screen">
-            <div className="p-8 bg-black grid gap-4">
-            <div>
+            <div className="p-8 bg-black grid gap-4 my-4">
+            <div >
                 <button onClick={()=>setShowAllPhotos(false)} className="top-2 fixed flex bg-white text-black p-2 rounded-2xl  cursor-pointer hover:bg-gray-100">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
@@ -19,8 +19,8 @@ export default function PlaceGallery({place}) {
             </div>
 
             {place?.photos?.length>0 && place.photos.map(photo=>(
-                <div>
-                    <img  src={'http://localhost:4000/uploads/'+photo} alt=""/>
+                <div className="">
+                    <img  src={'http://localhost:4000/uploads/'+photo} alt="" className="object-cover w-full h-full"/>
                 </div>
             ))}
             </div>
