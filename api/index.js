@@ -3,6 +3,8 @@ var cors = require('cors');
 const { default: mongoose } = require('mongoose');
 const User=require('./models/User.js')
 const Place=require('./models/Place.js');
+const Booking=require('./models/Booking.js');
+
 require('dotenv').config()
 const bcrypt = require('bcryptjs');
 const bcryptSalt=bcrypt.genSaltSync(10)
@@ -13,6 +15,7 @@ const imageDownloader = require('image-downloader');
 const { dirname } = require('path');
 const multer  = require('multer')
 const fs=require('fs'); // to rename files from server
+const { resolveCaa } = require('dns');
 
 const app= express();
 
@@ -178,6 +181,43 @@ app.put('/places', async (req,res) => {
 
   app.get('/places',async (req,res)=>{
     res.json(await Place.find({}))
+})
+
+
+//bookingfunctionality
+
+app.post('/bookings',async(req,res)=>{
+    const userData=await getUserDataFromReq(req);
+    console.log('userData:post',userData)
+
+    const {place,checkIn,checkOut,
+        guests,name,mobile,price,
+    }=req.body;
+await Booking.create({
+    place,checkIn,checkOut,
+    guests,name,mobile,price,
+    user:userData.id,
+}).then((doc)=>{
+    res.json(doc);
+}).catch((err)=>{
+    throw err;
+});
+});
+
+//bookings
+function getUserDataFromReq(req) {
+    return new Promise((resolve, reject) => {
+      jwt.verify(req.cookies.token, jwtSecret, {}, async (err, userData) => {
+        if (err) throw err;
+        resolve(userData);
+      });
+    });
+  }
+
+app.get('/bookings', async (req,res)=>{
+   const userData=await getUserDataFromReq(req);
+   res.json(await Booking.find({user:userData.id}).populate('place'))
+
 })
 
 app.listen(4000)
