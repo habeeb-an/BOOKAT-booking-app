@@ -23,7 +23,7 @@ export default function DestinationPage() {
         //  <img className="cursor-pointer" onClick={() => setShowAllPhotos(true)} src={'http://localhost:4000/uploads/' + place.photos[0]} alt="" />
 
     return (
-        <div className="mt-4 pt-8 bg-gray-100 -mx-8 px-8">
+        <div className="lg:mx-64 mt-4 pt-8  -mx-8 px-8">
             <h1 className="text-3xl">{place.title}</h1>
            <AddressLink>{place.address}</AddressLink>
             <PlaceGallery place={place} />
@@ -37,7 +37,7 @@ export default function DestinationPage() {
                 </div>
                 Check-in:{place.checkIn} <br/>
                 Check-out:{place.checkOut} <br/>
-                Max number of guests:{place.maxGuests} <br/>
+                Max number of guests:{place.guests} <br/>
                
             </div>
             <div>
