@@ -17,7 +17,7 @@ export default function IndexPage() {
     
         {places.length>0 && places.map(place => (
             
-            <Link to={'/place/'+place._id}>
+            <Link to={'/place/'+place._id} key={place._id}>
                 <div className="flex bg-gray-500 rounded-2xl mb-2">
                     
                 {place.photos?.[0] && (
