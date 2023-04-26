@@ -16,7 +16,7 @@ export default function IndexPage() {
         <div className="gap-x-6 gap-y-10 mt-8 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
     
         {places.length>0 && places.map(place => (
-            
+             
             <Link to={'/place/'+place._id} key={place._id}>
                 <div className="flex bg-gray-500 rounded-2xl mb-2">
                     
