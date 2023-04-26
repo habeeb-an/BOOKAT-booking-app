@@ -28,7 +28,7 @@ export default function PlacesFormPage(){
         } 
     axios.get('/places/'+id).then(res=>{
        const {data}=res;
-         setTitle(data.title);
+        setTitle(data.title);
         setAddress(data.address);
         setAddedPhotos(data.photos);
         setDescription(data.description);
@@ -109,7 +109,7 @@ if(redirect){
         
         {preInput('Perks','Select the perks you are providing')}
         <div className="gap-2 grid grid-cols-2  md:grid-cols-3 mb-11">
-    <       Perks selected={perks} onChange={setPerks}/>
+    <Perks selected={perks} onChange={setPerks}/>
     </div>
         {preInput('Extra Info','House rules,etc')}
             
