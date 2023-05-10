@@ -13,7 +13,7 @@ export default function IndexPage() {
         })
     },[])
     return (
-        <div className="gap-x-6 gap-y-10 mt-8 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
+        <div className="gap-x-6 gap-y-10 mt-8 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
     
         {places.length>0 && places.map(place => (
              
