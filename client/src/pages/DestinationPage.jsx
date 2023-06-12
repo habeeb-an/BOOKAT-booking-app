@@ -37,7 +37,6 @@ export default function DestinationPage() {
                 </div>
                 Check-in:{place.checkIn} <br/>
                 Check-out:{place.checkOut} <br/>
-                Max number of guests:{place.guests} <br/>
                
             </div>
             <div>
